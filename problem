@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCI Research - Problem Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0a0a;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #00ffff;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            padding: 0.5rem 1.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            border-color: #ff00ff;
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .page-header {
+            padding: 4rem 0 2rem 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: #00ffff;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            background: rgba(15, 15, 15, 0.8);
+            margin: 2rem 0;
+            padding: 4rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+        }
+
+        .highlight-box {
+            background: rgba(0, 20, 30, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .highlight-box h3 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            font-size: 1.5rem;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+
+        .highlight-box ul li {
+            padding: 0.8rem 0;
+            color: #e0e0e0;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .highlight-box ul li:last-child {
+            border-bottom: none;
+        }
+
+        .figure-container {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(0, 20, 30, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.1);
+        }
+
+        .figure-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .figure-caption {
+            color: #ff00ff;
+            font-style: italic;
+            text-align: center;
+            margin-top: 1rem;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+        }
+
+        strong {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        footer {
+            background: rgba(15, 15, 15, 0.95);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .content-section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00ffff, #ff00ff);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <ul class="nav-links">
+                <li><a href="index.html">Abstract</a></li>
+                <li><a href="problem.html" class="active">Problem</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Problem Analysis</h1>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="container">
+            <h2 class="section-title">Overview of the Issue and Its Significance</h2>
+            <p>Scientists and doctors have been working endlessly throughout time to deliver a solution to make the lives of patients who have tragically lost the ability to live a normal life easier. In order to achieve these goals, teams of various companies, such as Neurable, Neuralink, Precision, and more, have been working on developing Brain-Computer Interfaces (BCI). A BCI would let a patient's "brain communicate with and control external software or hardware, like a computer or robotic limb," using neurotransmission wave reading threads/sensors that catch signals.</p>
+
+            <p style="margin-top: 1rem;">The Neuralink was a device designed by Elon Musk and his team. Launched in 2016, the Neuralink's first human trail was held in January 2024 on patient Noland Arbaugh. Its main goal was to "create brain-computer interfaces: devices connected to the brain that allow people to communicate with computers by thought alone." The disk is like a coin sized puck, which sits on top of the head. It has thin, hair sized wires that spread across the brain and collects signals from neurons.</p>
+
+            <div class="highlight-box">
+                <h3>Critical Challenges in Current BCI Technology</h3>
+                <p>To implant this chip, open skull surgery is required, and this can come with its own set of risks. The brain is always changing in size as it swells and shrinks throughout the day; furthermore, the brain is not a stationary organ, it has unpredictable movements. Due to these facts, one of the major problems that arose during the first human trial was the threads retracting, giving the computer inaccurate readings.</p>
+                
+                <p style="margin-top: 1rem;">In order to fix this, it is required to reoperate on the recipient, which comes with a separate problem set such as infections. Additionally, the threads pierce the brain. With every reoperation, the brain gets damaged increasingly.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 3rem;">STEM Fundamentals of the Problem</h2>
+            
+            <p>Taking a deeper look at the threads, each one contains 16 electrodes that convert neural activity into computer commands, allowing actions like typing or cursor movement. Since there are 64 threads, there are 1024 electrodes distributed across it. However, reports indicate that approximately <strong>870 of these electrodes</strong> in Arbaugh's implant became non-functional, complicating the situation and prolonging repairs. This issue took weeks to fix as the scientists avoided taking out the whole thing and putting it back.</p>
+
+            <p style="margin-top: 1rem;">Although the exact reasons for the thread detachment are unclear, it is believed that the brain's natural movements may have contributed to this issue. This entails that we need to work on a design that can adapt to the changes and movement of the brain.</p>
+
+            <div class="figure-container">
+                <img src="figure1.jpg" alt="BCI Performance Graphs">
+                <p class="figure-caption"><strong>Figure 1:</strong> Performance comparison of Visual P300 BCI, Auditory P300 BCI, and Tactile P300 BCI systems showing accuracy (%) and Information Transfer Rate (ITR) in bits per minute as stimulus repetitions increase.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Signal Transfer Speed Challenge</h3>
+                <p>Along with the lack of adaptability most BCI devices have towards the ever-changing brain, BCI devices have a slow rate of signal transfer. The system must keep up with fast brain neurotransmission which has a speed of around <strong>269 mph or 115,197 ft/sec</strong>. Maintaining signal accuracy and speed remains a significant hurdle, particularly in visual stimulus-based BCIs, where performance can vary widely based on stimulus repetition.</p>
+                
+                <p style="margin-top: 1rem;">Figure 1 shows three graphs, each representing the performance of diverse types of Brain-Computer Interface (BCI) systems. The number of stimulus repetitions affects both accuracy and the speed of information transfer (ITR), with faster systems potentially sacrificing accuracy and vice versa.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 3rem;">Prior Responses and Lessons Learned</h2>
+            
+            <p>In light of the challenges faced by current BCI technologies, it is valuable to think about both historical and recent attempts to solve similar problems in the field of biomedical engineering and neurotechnology. For example, early neuroprosthetic devices aimed to restore movement for paralyzed patients, but faced significant challenges regarding biocompatibility, safety, and the complexity of neural signals.</p>
+
+            <p style="margin-top: 1rem;">One lesson learned from these early devices is the importance of iterative design and testing. Many prototypes were met with initial failure due to inadequate integration with biological systems, underscoring the necessity for extensive preclinical studies and gradual human trials.</p>
+
+            <div class="highlight-box">
+                <h3>Industry Response</h3>
+                <p>Taking the issues into account, many companies such as Precision Neuroscience have taken it upon themselves to make BCI "implants safer, smarter and reversible." In order to achieve this, they work on making the electrode arrays or threads "ultra-thin," so that it does not need to pierce the brain "yet can collect hundreds of times more data than traditional arrays."</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 3rem;">Design Objectives and Constraints</h2>
+            
+            <p>The primary focus of this proposal is to find the most optimal mechanics, materials, and methods to make the most efficient Brain Computer Interface. The solution will not only be cost efficient, but will also require the least maintenance, which will ensure the comfort of the patient as they will have to go through less surgeries—do it right at once so you do not have to do it again.</p>
+
+            <div class="highlight-box">
+                <h3>Key Considerations</h3>
+                <ul>
+                    <li>⚡ <strong>Invasiveness:</strong> Minimizing surgical requirements and brain penetration</li>
+                    <li>🎯 <strong>Data Accuracy:</strong> Ensuring high-quality signal collection and interpretation</li>
+                    <li>💰 <strong>Cost Efficiency:</strong> Making technology accessible and affordable</li>
+                    <li>🔄 <strong>Mobility:</strong> Allowing patients freedom of movement</li>
+                    <li>🛡️ <strong>Safety:</strong> Meeting FDA requirements and ensuring patient wellbeing</li>
+                    <li>📊 <strong>Durability:</strong> Long-term functionality without frequent repairs</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box" style="border-left-color: #ff00ff;">
+                <h3>Regulatory Requirements</h3>
+                <p>The FDA requires rigorous testing to ensure that any device used on humans is safe and effective. This includes extensive preclinical studies and clinical trials to demonstrate that the technology does not cause harm and accurately measures neuronal activity. Devices must also ensure the privacy and security of patient information, complying with regulations such as HIPAA.</p>
+                
+                <p style="margin-top: 1rem;">The classification of devices under FDA regulations can affect the approval process. Devices classified as Class III (high risk) require more stringent testing and approval processes, such as PMA (premarket approvals), which could further complicate and extend the regulatory approval process.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p style="color: #888;">© 2024 Brain-Computer Interface Research | Zainab Afridi</p>
+        </div>
+    </footer>
+</body>
+</html>
