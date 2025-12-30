@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCI Research - Abstract</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0a0a;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #00ffff;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            padding: 0.5rem 1.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            border-color: #ff00ff;
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .hero {
+            padding: 6rem 0 4rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #00ffff;
+            max-width: 700px;
+            margin: 0 auto 1rem;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+            animation: fadeInUp 1s ease;
+        }
+
+        .author {
+            font-size: 1.1rem;
+            color: #ff00ff;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+            animation: fadeInUp 1.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            background: rgba(15, 15, 15, 0.8);
+            margin: 3rem 0;
+            padding: 4rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #00ffff;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        }
+
+        .abstract-content {
+            background: rgba(0, 20, 30, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .keyword-tag {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .keyword-tag:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+        }
+
+        footer {
+            background: rgba(15, 15, 15, 0.95);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-info {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(0, 20, 30, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .contact-info h3 {
+            color: #ff00ff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+        }
+
+        .contact-info a {
+            color: #00ffff;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .contact-info a:hover {
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #00ffff;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            cursor: pointer;
+            margin: 1rem;
+        }
+
+        .cta-button:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        }
+
+        strong {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00ffff, #ff00ff);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Abstract</a></li>
+                <li><a href="problem.html">Problem</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Seamless Computer and Mind Connection</h1>
+            <p>Advancing Brain-Computer Interfaces Through Fiber Photometry</p>
+            <p class="author">Research by Zainab Afridi</p>
+        </div>
+    </section>
+
+    <div class="content-section">
+        <div class="container">
+            <h2 class="section-title">Abstract</h2>
+            <div class="abstract-content">
+                <p>This proposal addresses the development of Brain-Computer Interfaces (BCIs) to improve the quality of life for individuals with severe neurological impairments. The primary problem is the current limitations in BCI technology, including issues with signal accuracy, durability, and adaptability to the brain's dynamic environment. The proposed solution focuses on enhancing BCI systems through advanced biosensors, specifically fiber photometry, which offers high sensitivity and minimal invasiveness.</p>
+                
+                <p style="margin-top: 1rem;">Several candidates for biosensor solutions were evaluated, including two-photon microscopy, head-mounted microscopes, and fiber photometry. Criteria for selection included invasiveness, data accuracy, cost, and mobility. Fiber photometry emerged as the optimal choice due to its superior sensitivity, lower invasiveness, and cost-effectiveness.</p>
+                
+                <p style="margin-top: 1rem;">Implementation involves addressing challenges such as improving signal-to-noise ratio, enhancing optical fiber design, precise genetic targeting, efficient data analysis, and navigating regulatory and ethical considerations. By overcoming these challenges, the proposed fiber photometry-based BCI system aims to provide reliable and high-quality neural data, facilitating better control of external devices.</p>
+                
+                <p style="margin-top: 1rem;">The successful implementation of this technology has the potential to significantly enhance the independence and quality of life for patients, making BCIs a transformative tool in neurorehabilitation and beyond.</p>
+                
+                <div class="keywords">
+                    <span class="keyword-tag">Brain-Computer Interface (BCI)</span>
+                    <span class="keyword-tag">Neuralink</span>
+                    <span class="keyword-tag">Fiber Photometry</span>
+                    <span class="keyword-tag">Two-Photon Microscopy</span>
+                    <span class="keyword-tag">Head-Mounted Microscope</span>
+                    <span class="keyword-tag">Neurotransmission</span>
+                    <span class="keyword-tag">Calcium Imaging</span>
+                    <span class="keyword-tag">Neural Activity Monitoring</span>
+                    <span class="keyword-tag">Neuroprosthetic</span>
+                    <span class="keyword-tag">Neurorehabilitation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h3 style="color: #00ffff; margin-bottom: 1rem; text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);">Learn More</h3>
+            <p style="margin-bottom: 2rem; color: #e0e0e0;">For detailed technical specifications and research citations, download the complete research paper.</p>
+            <a href="Zainab Afridi_Seamless Computer and Mind Connection_final.docx" download class="cta-button">Download Full Research Paper</a>
+            
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><strong>Email:</strong> <a href="mailto:zainab11afridi@gmail.com">zainab11afridi@gmail.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:+15163483431">(516) 348-3431</a></p>
+            </div>
+            
+            <p style="margin-top: 2rem; color: #888;">© 2024 Brain-Computer Interface Research | Zainab Afridi</p>
+        </div>
+    </footer>
+</body>
+</html>
