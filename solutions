@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCI Research - Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0a0a;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #00ffff;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            padding: 0.5rem 1.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            border-color: #ff00ff;
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .page-header {
+            padding: 4rem 0 2rem 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: #00ffff;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            background: rgba(15, 15, 15, 0.8);
+            margin: 2rem 0;
+            padding: 4rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+        }
+
+        .figure-container {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(0, 20, 30, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.1);
+        }
+
+        .figure-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .figure-caption {
+            color: #ff00ff;
+            font-style: italic;
+            text-align: center;
+            margin-top: 1rem;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .solution-card {
+            background: rgba(0, 20, 30, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+            border-color: #00ffff;
+        }
+
+        .solution-card h3 {
+            color: #ff00ff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+        }
+
+        .solution-card .specs {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .solution-card .specs p {
+            margin: 0.5rem 0;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            margin: 3rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 20, 30, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        th {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+
+        tr:hover {
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .highlight-box {
+            background: rgba(0, 20, 30, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .highlight-box h3 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            font-size: 1.5rem;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+
+        .highlight-box ul li {
+            padding: 0.8rem 0;
+            color: #e0e0e0;
+        }
+
+        strong {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        footer {
+            background: rgba(15, 15, 15, 0.95);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .content-section {
+                padding: 2rem 1rem;
+            }
+
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00ffff, #ff00ff);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <ul class="nav-links">
+                <li><a href="index.html">Abstract</a></li>
+                <li><a href="problem.html">Problem</a></li>
+                <li><a href="solutions.html" class="active">Solutions</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>Biosensor Solutions</h1>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="container">
+            <h2 class="section-title">Categories of Solutions Considered</h2>
+            
+            <p>While Neuralink and other BCI technologies have advanced quite far, there is always room for improvement. In this section, we will be looking at feasible solutions to the raising problems we have been seeing in BCIs.</p>
+
+            <p style="margin-top: 1rem;">The first solution lays along the lines of finding better technology for the devices used to read brain waves and neurotransmitters. One example of pre-existing advances we could use is fluorescent biosensors (FB). They typically consist of a fluorescent protein or dye that changes its light emission properties upon binding to a target molecule, such as a neurotransmitter. These neurotransmissions can be imaged using portable devices such as 2P microscopy, miniaturized head-mounted microscopes, or fiber photometry.</p>
+
+            <div class="figure-container">
+                <img src="figure2.jpg" alt="Imaging Methods Diagram">
+                <p class="figure-caption"><strong>Figure 2:</strong> Methods for detecting and imaging neuronal activity in vivo. (A) Two-photon (2P) excitation microscopy for non-invasive brain imaging. (B) Head-mounted portable microscope capturing neurotransmission in freely moving animals. (C) Fiber photometry setup with implanted optical fiber for detection of fluorescence signals.</p>
+            </div>
+
+            <div class="figure-container">
+                <img src="figure3.jpg" alt="Web of Candidate Solutions">
+                <p class="figure-caption"><strong>Figure 3:</strong> Web of candidate solutions showing the two main categories: different types of devices to collect and record data (overall system) and reengineering materials for the threads.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Focus of This Project</h3>
+                <p>While reengineering the material of the threads may be a probable and suitable solution, this project will focus on improving the overall system of BCI. In order to do this, we will be looking at alternate ways to screen, read, and image brain activities via biosensors.</p>
+                
+                <p style="margin-top: 1rem;">"Neurotransmitter biosensors allow precise spatiotemporal mapping of neurotransmission in the brain of animals." It is necessary to review the options of 2P microscopy, miniaturized head-mounted microscopes, or fiber photometry in terms of freely moving humans.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 4rem;">Detailed Solution Analysis</h2>
+
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <h3>Two-Photon (2P) Microscopy</h3>
+                    <p>Two-photon microscopy is an advanced imaging technique ideal for deep-tissue imaging, offering unique advantages in brain-computer interface research. Unlike conventional single-photon or confocal microscopy, 2P microscopy uses near-infrared (NIR) laser light to excite fluorescent molecules through simultaneous absorption of two low-energy photons.</p>
+                    
+                    <p style="margin-top: 1rem;">This enables fluorescence generation only at the focal point, minimizing out-of-focus light and allowing precise imaging at depths up to 500 µm in intact tissues or whole organisms.</p>
+                    
+                    <div class="specs">
+                        <p><strong>Cost:</strong> $200,000 - $1M+</p>
+                        <p><strong>Mobility:</strong> Stationary only</p>
+                        <p><strong>Invasiveness:</strong> Moderate</p>
+                        <p><strong>Surgery:</strong> Skull window or cranial window replacement</p>
+                        <p><strong>Sensitivity:</strong> High</p>
+                    </div>
+                </div>
+
+                <div class="solution-card">
+                    <h3>Head-Mounted Microscopes</h3>
+                    <p>The mini-mScope is a lightweight, head-mounted miniature fluorescence microscope designed for imaging neural activity in freely behaving animals. It offers high-resolution imaging of cortical activity across large brain regions, making it a critical tool for studying behavior, learning, and neural connectivity over long timescales.</p>
+                    
+                    <p style="margin-top: 1rem;">Weighing less than 1.8 g, it uses GRIN lenses for short focal lengths and compatibility with a range of fluorophores. The system delivers feedback with an average latency of 23.9 ms ± 7.9 ms, supporting closed-loop experiments.</p>
+                    
+                    <div class="specs">
+                        <p><strong>Cost:</strong> $50,000 - $150,000</p>
+                        <p><strong>Mobility:</strong> Freely moving</p>
+                        <p><strong>Invasiveness:</strong> Low</p>
+                        <p><strong>Surgery:</strong> Limited skull surgery</p>
+                        <p><strong>Sensitivity:</strong> Moderate</p>
+                    </div>
+                </div>
+
+                <div class="solution-card" style="border-color: #ff00ff;">
+                    <h3>Fiber Photometry ⭐</h3>
+                    <p>Fiber photometry is a minimally invasive technique utilizing genetically encoded calcium indicators to monitor neural activity with remarkable sensitivity and specificity. This approach allows for real-time, accurate observation of brain signals in freely moving subjects.</p>
+                    
+                    <p style="margin-top: 1rem;">The straightforward nature of fiber photometry equipment and its high sensitivity in detecting neuronal activities make it highly appealing to researchers and scientists. It provides crucial insights into the synchronous activity patterns within specific neurocircuits during both normal and abnormal behavioral states.</p>
+                    
+                    <div class="specs">
+                        <p><strong>Cost:</strong> $10,000 - $50,000</p>
+                        <p><strong>Mobility:</strong> Freely moving</p>
+                        <p><strong>Invasiveness:</strong> Minimal</p>
+                        <p><strong>Surgery:</strong> Optical fiber implantation only</p>
+                        <p><strong>Sensitivity:</strong> Highest</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="figure-container">
+                <img src="figure4.jpg" alt="Neural Activity in Living Rats">
+                <p class="figure-caption"><strong>Figure 4:</strong> Mammalian CA1 hippocampal neurons captured in living rats and mice using two-photon fluorescence micro endoscopy, showing different cellular components including dendrites, cell bodies, and apical dendrites.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 4rem;">Comparative Analysis</h2>
+
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>2P Microscopy</th>
+                            <th>Head-Mounted</th>
+                            <th>Fiber Photometry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Surgery Required</strong></td>
+                            <td>Skull window technique (∼15 μm) or glass cranial window replacement</td>
+                            <td>Deep brain imaging with limited skull surgery (cranial window)</td>
+                            <td>Requires implanting an optical fiber</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Invasiveness</strong></td>
+                            <td>Moderately invasive</td>
+                            <td>Less invasive compared to 2P Microscopy</td>
+                            <td>Least invasive among the three</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Connection Type</strong></td>
+                            <td>Wired</td>
+                            <td>Wired or Wireless (both options available)</td>
+                            <td>Wired or Wireless (both options available)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Reading</strong></td>
+                            <td>Calcium imaging</td>
+                            <td>Connected with detection device using optical fiber or wireless options</td>
+                            <td>Has high sensitivity detection capabilities</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Patient Mobility</strong></td>
+                            <td>Can only be used on stationary patients</td>
+                            <td>Can be used on moving patients</td>
+                            <td>Can be used on moving patients</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost</strong></td>
+                            <td>$200,000 to over $1 million</td>
+                            <td>$50,000 to $150,000</td>
+                            <td>$10,000 to $50,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Imaging Depth</strong></td>
+                            <td>Up to 500 µm</td>
+                            <td>Cortical activity across large regions</td>
+                            <td>Several millimeters deep</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box" style="border-left-color: #ff00ff;">
+                <h3>Conclusion</h3>
+                <p>Taking both the pros and the cons of each biosensor into consideration, it can be concluded that the best current option would be <strong>fiber photometry</strong>. Not only is it the most sensitive, which would allow for better data collection and readings, it is also remarkably similar in structure to current BCIs.</p>
+                
+                <p style="margin-top: 1rem;">The advantages include:</p>
+                <ul>
+                    <li>✓ Highest sensitivity for neural activity detection</li>
+                    <li>✓ Lowest invasiveness among all options</li>
+                    <li>✓ Most cost-effective solution</li>
+                    <li>✓ Allows patient mobility</li>
+                    <li>✓ Compatible with both wired and wireless configurations</li>
+                    <li>✓ Real-time monitoring capabilities</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p style="color: #888;">© 2024 Brain-Computer Interface Research | Zainab Afridi</p>
+        </div>
+    </footer>
+</body>
+</html>
